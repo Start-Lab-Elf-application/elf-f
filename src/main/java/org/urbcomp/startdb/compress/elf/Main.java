@@ -1,36 +1,28 @@
 package org.urbcomp.startdb.compress.elf;
 
-import org.urbcomp.startdb.compress.elf.compressor.*;
-import org.urbcomp.startdb.compress.elf.decompressor.*;
+import org.urbcomp.startdb.compress.elf.filedecompressor.ElfFileDecompressor;
 
-import java.util.List;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        double[] vs = new double[] {
-                        93.85,
-                        -38.88,
-                        532.64,
-                        326.52,
-                        -1107.21,
-                        211.1,
-                        9.34,
-                        238.77,
-                        -103.54};
-        ICompressor compressor = new ElfOnChimpCompressor();
-        for (double v : vs) {
-            compressor.addValue(v);
+
+    public static void main(String[] args) throws IOException {
+        int flag = Integer.parseInt(args[0]);
+        String filePath = args[1];
+        String outputFilePath = args[2];
+
+        if(flag == 0){
+            org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor fileCompressor = new org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor();
+            fileCompressor.setFilePath(filePath);
+            fileCompressor.setoutputFilePath(outputFilePath);
+            fileCompressor.compress();
         }
-        compressor.close();
 
-        System.out.println(compressor.getSize());
-
-        byte[] result = compressor.getBytes();
-        IDecompressor decompressor = new ElfOnChimpDecompressor(result);
-        List<Double> values = decompressor.decompress();
-        assert(values.size() == vs.length);
-        for (int i = 0; i < values.size(); i++) {
-            assert(vs[i] == values.get(i));
+        else{
+            org.urbcomp.startdb.compress.elf.filedecompressor.ElfFileDecompressor fileDecompressor = new org.urbcomp.startdb.compress.elf.filedecompressor.ElfFileDecompressor();
+            fileDecompressor.setFilePath(filePath);
+            fileDecompressor.setoutputFilePath(outputFilePath);
+            fileDecompressor.decompress();
         }
     }
 }
