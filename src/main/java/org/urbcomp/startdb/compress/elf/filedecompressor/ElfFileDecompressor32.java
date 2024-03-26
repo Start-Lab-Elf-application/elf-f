@@ -1,14 +1,14 @@
 package org.urbcomp.startdb.compress.elf.filedecompressor;
 
-import org.urbcomp.startdb.compress.elf.decompressor.ElfDecompressor;
-import org.urbcomp.startdb.compress.elf.decompressor.IDecompressor;
+import org.urbcomp.startdb.compress.elf.decompressor32.ElfDecompressor32;
+import org.urbcomp.startdb.compress.elf.decompressor32.IDecompressor32;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
-
-public class ElfFileDecompressor extends AbstractFileDecompressor{
-
+public class ElfFileDecompressor32 extends AbstractFileDecompressor{
     @Override
     public void decompress() throws IOException {
 
@@ -18,8 +18,8 @@ public class ElfFileDecompressor extends AbstractFileDecompressor{
             StringBuilder stringBuilder = new StringBuilder();
 
             for (byte[] block : data) {
-                IDecompressor decompressor = new ElfDecompressor(block);
-                List<Double> blockValues = decompressor.decompress();
+                IDecompressor32 decompressor = new ElfDecompressor32(block);
+                List<Float> blockValues = decompressor.decompress();
 
                 for (double element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());

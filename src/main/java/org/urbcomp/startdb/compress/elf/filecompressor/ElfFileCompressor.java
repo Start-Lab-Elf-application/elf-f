@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static org.urbcomp.startdb.compress.elf.utils.OperationBetweenIntAndByte.intToTwoBytes;
 
 public class ElfFileCompressor extends AbstractFileCompressor{
+
     @Override
     public void compress() throws IOException {
         org.urbcomp.startdb.compress.elf.utils.FileReader fileReader;
@@ -28,16 +29,17 @@ public class ElfFileCompressor extends AbstractFileCompressor{
         ArrayList<Byte> sizeList = new ArrayList<>();
         sizeList.add((byte) 0x00);
         sizeList.add((byte) 0x00);
-
+        long totalTime = 0;
         while ((vs = fileReader.nextBlock()) != null) {
-
+            long begin = System.currentTimeMillis();
             ICompressor compressor = new ElfCompressor();
 
             for (double v : vs) {
                 compressor.addValue(v);
             }
             compressor.close();
-
+            long end = System.currentTimeMillis();
+            totalTime += (end - begin);
             int sizeofcompressor = compressor.getSize() / 8 + 12;
 
             byte[] result = compressor.getBytes();
@@ -54,7 +56,7 @@ public class ElfFileCompressor extends AbstractFileCompressor{
 
             bos.write(result, 0, sizeofcompressor);
         }
-
+        System.out.println(totalTime);  //压缩时间
         for (Byte b : sizeList) {
             fos.write(b);
         }

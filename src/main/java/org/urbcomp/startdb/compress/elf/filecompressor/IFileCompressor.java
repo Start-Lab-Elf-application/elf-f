@@ -5,4 +5,6 @@ public interface IFileCompressor {
     void setFilePath(String path);
     String getFilePath();
     String getOutputFilePath();
+
+    //压缩时间
 }
