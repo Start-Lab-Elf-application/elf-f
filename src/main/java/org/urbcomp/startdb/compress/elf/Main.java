@@ -22,9 +22,11 @@ public class Main {
             AbstractFileDecompressor fileDecompressor = null;
             if (filePath.endsWith(".elf")){
                 fileDecompressor = new ElfFileDecompressor();
+                System.out.println("elf");
             }
             else if (filePath.endsWith(".chimp")){
                 fileDecompressor = new ChimpFileDecompressor();
+                System.out.println("chimp");
             }
             else if (filePath.endsWith(".chimpN")){
                 fileDecompressor = new ChimpNFileDecompressor();
@@ -53,13 +55,13 @@ public class Main {
             else if (filePath.endsWith(".elfOnChimp32")){
                 fileDecompressor = new ElfOnChimpNFileDecompressor();
             }
-            else if (filePath.endsWith("elfOnChimpN32")){
+            else if (filePath.endsWith(".elfOnChimpN32")){
                 fileDecompressor = new ElfOnChimpNFileDecompressor();
             }
-            else if (filePath.endsWith("elfOnGorilla32")){
+            else if (filePath.endsWith(".elfOnGorilla32")){
                 fileDecompressor = new ElfOnGorillaFileDecompressor32OS();
             }
-            else if (filePath.endsWith("gorilla32")){
+            else if (filePath.endsWith(".gorilla32")){
                 fileDecompressor = new GorillaFileDecompressorOS();
             }
             assert fileDecompressor != null;
