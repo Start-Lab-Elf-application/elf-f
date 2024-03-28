@@ -21,7 +21,7 @@ public class ElfFileDecompressor32 extends AbstractFileDecompressor{
                 IDecompressor32 decompressor = new ElfDecompressor32(block);
                 List<Float> blockValues = decompressor.decompress();
 
-                for (double element : blockValues) {
+                for (float element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
                 }
 

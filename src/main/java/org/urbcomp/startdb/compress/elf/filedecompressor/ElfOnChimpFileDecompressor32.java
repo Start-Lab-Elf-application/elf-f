@@ -22,7 +22,7 @@ public class ElfOnChimpFileDecompressor32 extends AbstractFileDecompressor{
                 IDecompressor32 decompressor = new ElfOnChimpDecompressor32(block);
                 List<Float> blockValues = decompressor.decompress();
 
-                for (double element : blockValues) {
+                for (float element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
                 }
 
