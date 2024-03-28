@@ -76,16 +76,16 @@ public class Main {
                 fileDecompressor = new ChimpNFileDecompressor32();
             }
             else if (filePath.endsWith(".elfOnChimp32")){
-                fileDecompressor = new ElfOnChimpNFileDecompressor();
+                fileDecompressor = new ElfOnChimpFileDecompressor32();
             }
             else if (filePath.endsWith(".elfOnChimpN32")){
-                fileDecompressor = new ElfOnChimpNFileDecompressor();
+                fileDecompressor = new ElfOnChimpNFileDecompressor32();
             }
             else if (filePath.endsWith(".elfOnGorilla32")){
                 fileDecompressor = new ElfOnGorillaFileDecompressor32OS();
             }
             else if (filePath.endsWith(".gorilla32")){
-                fileDecompressor = new GorillaFileDecompressorOS();
+                fileDecompressor = new GorillaFileDecompressor32OS();
             }
             assert fileDecompressor != null;
             fileDecompressor.setFilePath(filePath);

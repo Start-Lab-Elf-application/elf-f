@@ -22,7 +22,7 @@ public class ChimpNFileDecompressor32 extends AbstractFileDecompressor{
                 IDecompressor32 decompressor = new ChimpNDecompressor32(block, 128);
                 List<Float> blockValues = decompressor.decompress();
 
-                for (double element : blockValues) {
+                for (float element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
                 }
 

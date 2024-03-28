@@ -22,7 +22,7 @@ public class ElfOnGorillaFileDecompressor32OS extends AbstractFileDecompressor{
                 IDecompressor32 decompressor = new ElfOnGorillaDecompressor32OS(block);
                 List<Float> blockValues = decompressor.decompress();
 
-                for (double element : blockValues) {
+                for (float element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
                 }
 
