@@ -1,9 +1,7 @@
 package org.urbcomp.startdb.compress.elf;
 
 import org.apache.commons.math3.analysis.function.Abs;
-import org.urbcomp.startdb.compress.elf.filecompressor.AbstractFileCompressor;
-import org.urbcomp.startdb.compress.elf.filecompressor.ChimpFileCompressor;
-import org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor;
+import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 
 import java.io.*;
@@ -24,6 +22,18 @@ public class Main {
             }
             else if (Objects.equals(choice, "chimp")){
                 fileCompressor = new ChimpFileCompressor();
+            }
+            else if (Objects.equals(choice, "elfOnChimp")){
+                fileCompressor = new ElfOnChimpFileCompressor();
+            }
+            else if (Objects.equals(choice, "elfOnChimpN")){
+                fileCompressor = new ElfOnChimpNFileCompressor();
+            }
+            else if (Objects.equals(choice, "elfOnGorilla")){
+                fileCompressor = new ElfOnGorillaFileCompressorOS();
+            }
+            else if (Objects.equals(choice, "gorilla")){
+                fileCompressor = new GorillaFileCompressorOS();
             }
             //...继续添加其他算法
             fileCompressor.setFilePath(filePath);
