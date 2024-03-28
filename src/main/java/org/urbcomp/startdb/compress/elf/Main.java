@@ -1,8 +1,13 @@
 package org.urbcomp.startdb.compress.elf;
 
+import org.apache.commons.math3.analysis.function.Abs;
+import org.urbcomp.startdb.compress.elf.filecompressor.AbstractFileCompressor;
+import org.urbcomp.startdb.compress.elf.filecompressor.ChimpFileCompressor;
+import org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 
 import java.io.*;
+import java.util.Objects;
 
 public class Main {
 
@@ -10,9 +15,17 @@ public class Main {
         int flag = Integer.parseInt(args[0]);
         String filePath = args[1];
         String outputFilePath = args[2];
+        String choice = args[3];
 
         if(flag == 0){
-            org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor fileCompressor = new org.urbcomp.startdb.compress.elf.filecompressor.ElfFileCompressor();
+            AbstractFileCompressor fileCompressor = null;
+            if (Objects.equals(choice, "elf")){
+                fileCompressor = new ElfFileCompressor();
+            }
+            else if (Objects.equals(choice, "chimp")){
+                fileCompressor = new ChimpFileCompressor();
+            }
+            //...继续添加其他算法
             fileCompressor.setFilePath(filePath);
             fileCompressor.setoutputFilePath(outputFilePath);
             fileCompressor.compress();
