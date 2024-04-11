@@ -3,7 +3,9 @@ package org.urbcomp.startdb.compress.elf.filecompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ElfCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ElfOnChimpCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ICompressor;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
 import org.urbcomp.startdb.compress.elf.utils.FileReader;
+import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +23,8 @@ public class ElfOnChimpFileCompressor extends AbstractFileCompressor{
         org.urbcomp.startdb.compress.elf.utils.FileReader fileReader;
         FileOutputStream fos = new FileOutputStream(this.getOutputFilePath());
         BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(Paths.get(this.getOutputFilePath())));
+
+        String filePath = this.getOutputFilePath();
 
         try {
             fileReader = new FileReader(this.getFilePath());
@@ -63,6 +67,9 @@ public class ElfOnChimpFileCompressor extends AbstractFileCompressor{
         for (Byte b : sizeList) {
             fos.write(b);
         }
+
+        WriteByteToCSV.writeByteToCSV(filePath,4);
+
         fos.close();
 
         bos.flush();

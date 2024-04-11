@@ -2,7 +2,9 @@ package org.urbcomp.startdb.compress.elf.filecompressor;
 
 import org.urbcomp.startdb.compress.elf.compressor.ElfCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ICompressor;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
 import org.urbcomp.startdb.compress.elf.utils.FileReader;
+import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,12 +14,13 @@ import java.util.ArrayList;
 import static org.urbcomp.startdb.compress.elf.utils.OperationBetweenIntAndByte.intToTwoBytes;
 
 public class ElfFileCompressor extends AbstractFileCompressor{
-
     @Override
     public void compress() throws IOException {
-        org.urbcomp.startdb.compress.elf.utils.FileReader fileReader;
+        FileReader fileReader;
         FileOutputStream fos = new FileOutputStream(this.getOutputFilePath());
         BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(Paths.get(this.getOutputFilePath())));
+
+        String filePath = this.getOutputFilePath();
 
         try {
             fileReader = new FileReader(this.getFilePath());
@@ -29,17 +32,14 @@ public class ElfFileCompressor extends AbstractFileCompressor{
         ArrayList<Byte> sizeList = new ArrayList<>();
         sizeList.add((byte) 0x00);
         sizeList.add((byte) 0x00);
-        long totalTime = 0;
+
         while ((vs = fileReader.nextBlock()) != null) {
-            long begin = System.currentTimeMillis();
             ICompressor compressor = new ElfCompressor();
 
             for (double v : vs) {
                 compressor.addValue(v);
             }
             compressor.close();
-            long end = System.currentTimeMillis();
-            totalTime += (end - begin);
             int sizeofcompressor = compressor.getSize() / 8 + 12;
 
             byte[] result = compressor.getBytes();
@@ -56,10 +56,12 @@ public class ElfFileCompressor extends AbstractFileCompressor{
 
             bos.write(result, 0, sizeofcompressor);
         }
-        System.out.println(totalTime);  //压缩时间
         for (Byte b : sizeList) {
             fos.write(b);
         }
+
+        WriteByteToCSV.writeByteToCSV(filePath,1);
+
         fos.close();
 
         bos.flush();

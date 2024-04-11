@@ -92,6 +92,7 @@ public class Elf64Utils {
 
     private static double get10iP(int i) {
         if (i < 0) {
+//            System.out.println("alpha:" + i);
             throw new IllegalArgumentException("The argument should be greater than 0");
         }
         if (i >= map10iP.length) {
