@@ -11,7 +11,7 @@ public class DeleteBytesFromCSV {
             // 读取原始CSV文件内容
             File file = new File(filePath);
             byte[] fileContent = new byte[(int) file.length()];
-            byte[] algorithm = new byte[1];
+            byte[] algorithm = new byte[4];
             try (FileInputStream fis = new FileInputStream(file)) {
                 fis.read(fileContent);
                 fis.read(algorithm);
