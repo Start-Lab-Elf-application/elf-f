@@ -11,7 +11,6 @@ public class ElfFileDecompressor extends AbstractFileDecompressor{
 
     @Override
     public void decompress() throws IOException {
-
         List<byte[]> data = readBytesFromFile(this.getFilePath());
         System.out.println("read success");
 

@@ -3,6 +3,7 @@ package org.urbcomp.startdb.compress.elf;
 import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
 
 import java.io.*;
 import java.util.Objects;
@@ -59,6 +60,7 @@ public class Main {
 //            System.out.println(algorithmInt);
             AbstractFileDecompressor fileDecompressor = null;
             if (algorithmInt == 1){
+                DeleteBytesFromCSV.writeByteToCSV(filePath);
                 fileDecompressor = new ElfFileDecompressor();
                 System.out.println("elf");
             }
