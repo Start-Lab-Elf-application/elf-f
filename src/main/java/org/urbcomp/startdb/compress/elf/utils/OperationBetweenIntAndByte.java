@@ -10,7 +10,7 @@ public class OperationBetweenIntAndByte {
     }
 
     public static int twoBytesToInt(byte[] bytes) {
-        int result = ((bytes[0] & 0xFF) << 8) | (bytes[1] & 0xFF);
+        int result = ((bytes[0] & 0xFF) << 8) | ((bytes[1] & 0xFF));
         return result;
     }
 

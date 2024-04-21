@@ -1,6 +1,5 @@
 package org.urbcomp.startdb.compress.elf.filedecompressor;
 
-import org.urbcomp.startdb.compress.elf.decompressor32.ElfOnGorillaDecompressor32OS;
 import org.urbcomp.startdb.compress.elf.decompressor32.GorillaDecompressor32OS;
 import org.urbcomp.startdb.compress.elf.decompressor32.IDecompressor32;
 
@@ -22,7 +21,7 @@ public class GorillaFileDecompressor32OS extends AbstractFileDecompressor{
                 IDecompressor32 decompressor = new GorillaDecompressor32OS(block);
                 List<Float> blockValues = decompressor.decompress();
 
-                for (double element : blockValues) {
+                for (float element : blockValues) {
                     stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
                 }
 

@@ -26,5 +26,5 @@ public abstract class AbstractFileCompressor implements IFileCompressor{
         return this.outputFilePath;
     }
 
-    protected abstract void compress() throws IOException;
+    public abstract void compress() throws IOException;
 }
