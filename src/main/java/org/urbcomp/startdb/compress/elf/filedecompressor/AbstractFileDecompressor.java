@@ -40,7 +40,6 @@ public abstract class AbstractFileDecompressor implements IFileDecompressor {
 
         byte[] length = new byte[2];
         inStream.read(length);
-
         int intlength = twoBytesToInt(length);
         byte[] sizeOfBlock = new byte[intlength * 2];
         inStream.read(sizeOfBlock);
@@ -51,8 +50,6 @@ public abstract class AbstractFileDecompressor implements IFileDecompressor {
             byte[] tempArr = new byte[2];
             tempArr[0] = sizeOfBlock[2 * i];
             tempArr[1] = sizeOfBlock[2 * i + 1];
-//            tempArr[0] = sizeOfBlock[i];
-//            tempArr[1] = sizeOfBlock[i + 1];
             sizeOfBlockToInt.add(twoBytesToInt(tempArr));
         }
 

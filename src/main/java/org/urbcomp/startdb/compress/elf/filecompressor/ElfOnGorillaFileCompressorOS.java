@@ -4,7 +4,7 @@ import org.urbcomp.startdb.compress.elf.compressor.ElfCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ElfOnChimpCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ElfOnGorillaCompressorOS;
 import org.urbcomp.startdb.compress.elf.compressor.ICompressor;
-import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
 import org.urbcomp.startdb.compress.elf.utils.FileReader;
 import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 

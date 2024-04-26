@@ -3,7 +3,7 @@ package org.urbcomp.startdb.compress.elf.filecompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ChimpCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ElfCompressor;
 import org.urbcomp.startdb.compress.elf.compressor.ICompressor;
-import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
 import org.urbcomp.startdb.compress.elf.utils.FileReader;
 import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 

@@ -3,13 +3,15 @@ package org.urbcomp.startdb.compress.elf;
 import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
-import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromCSV;
+import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
 
 import java.io.*;
 import java.util.Objects;
 
 public class Main {
+
     public static byte[] result;
+
     public static void main(String[] args) throws IOException {
         int flag = Integer.parseInt(args[0]);
         String filePath = args[1];
@@ -50,17 +52,18 @@ public class Main {
         }
 
         else{
+// 从给定的文件路径（filePath）中读取前四个字节，将其转换为整数，
             byte[] algorithmByte = new byte[4];
             File file = new File(filePath);
             try (FileInputStream fis = new FileInputStream(file)) {
                 fis.read(algorithmByte);
             }
-//            System.out.println(algorithmByte[0]);
             int algorithmInt = ByteToInt.byteToInt(algorithmByte);
-//            System.out.println(algorithmInt);
+            //删除每块开头的字节大小
+            DeleteBytesFromDF.writeByteToDF(filePath);
+
             AbstractFileDecompressor fileDecompressor = null;
             if (algorithmInt == 1){
-                DeleteBytesFromCSV.writeByteToCSV(filePath);
                 fileDecompressor = new ElfFileDecompressor();
                 System.out.println("elf");
             }
