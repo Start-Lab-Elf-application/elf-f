@@ -4,6 +4,7 @@ import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
 import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
+import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 
 import java.io.*;
 import java.util.Objects;
@@ -119,6 +120,7 @@ public class Main {
             fileDecompressor.setFilePath(filePath);
             fileDecompressor.setoutputFilePath(outputFilePath);
             fileDecompressor.decompress();
+            WriteByteToCSV.writeByteToCSV(filePath, 1);
         }
     }
 }
