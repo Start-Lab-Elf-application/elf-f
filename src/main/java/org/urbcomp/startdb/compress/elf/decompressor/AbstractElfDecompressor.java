@@ -42,10 +42,10 @@ public abstract class AbstractElfDecompressor implements IDecompressor {
             }
         } else {
             int alpha = lastBetaStar - sp - 1;
-            System.out.println("lastBetaStar:" + lastBetaStar);
-            System.out.println("sp:" + sp);
+//            System.out.println("lastBetaStar:" + lastBetaStar);
+//            System.out.println("sp:" + sp);
             v = Elf64Utils.roundUp(vPrime, alpha);
-            System.out.println("v: " + v);
+//            System.out.println("v: " + v);
         }
         return v;
     }
