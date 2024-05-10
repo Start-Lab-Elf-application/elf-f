@@ -60,8 +60,8 @@ public class Main {
                 fis.read(algorithmByte);
             }
             int algorithmInt = ByteToInt.byteToInt(algorithmByte);
-            //删除每块开头的字节大小
-            DeleteBytesFromDF.writeByteToDF(filePath);
+//            //删除每块开头的字节大小
+//            DeleteBytesFromDF.writeByteToDF(filePath);
 
             AbstractFileDecompressor fileDecompressor = null;
             if (algorithmInt == 1){
@@ -120,7 +120,7 @@ public class Main {
             fileDecompressor.setFilePath(filePath);
             fileDecompressor.setoutputFilePath(outputFilePath);
             fileDecompressor.decompress();
-            WriteByteToCSV.writeByteToCSV(filePath, 1);
+//            WriteByteToCSV.writeByteToCSV(filePath, 1);
         }
     }
 }

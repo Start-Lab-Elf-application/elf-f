@@ -38,6 +38,10 @@ public abstract class AbstractFileDecompressor implements IFileDecompressor {
         File file = new File(path);
         FileInputStream inStream = new FileInputStream(file);
 
+        // 这个数组没用，这里是为了将inStream的指针指到第五个字节
+        byte[] algorithm = new byte[4];
+        inStream.read(algorithm);
+
         byte[] length = new byte[2];
         inStream.read(length);
         int intlength = twoBytesToInt(length);

@@ -15,7 +15,7 @@ public class ElfOnGorillaFileDecompressorOS extends AbstractFileDecompressor{
 
         List<byte[]> data = readBytesFromFile(this.getFilePath());
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.getOutputFilePath(), true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.getOutputFilePath()))) {
             StringBuilder stringBuilder = new StringBuilder();
 
             for (byte[] block : data) {
@@ -23,7 +23,7 @@ public class ElfOnGorillaFileDecompressorOS extends AbstractFileDecompressor{
                 List<Double> blockValues = decompressor.decompress();
 
                 for (double element : blockValues) {
-                    stringBuilder.append(String.valueOf(element)).append(System.lineSeparator());
+                    stringBuilder.append(element).append(System.lineSeparator());
                 }
 
                 writer.write(stringBuilder.toString());
