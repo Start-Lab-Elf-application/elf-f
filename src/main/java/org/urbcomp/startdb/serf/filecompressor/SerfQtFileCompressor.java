@@ -1,9 +1,10 @@
-package org.urbcomp.startdb.compress.elf.filecompressor;
+package org.urbcomp.startdb.serf.filecompressor;
 
-import org.urbcomp.startdb.compress.elf.compressor.ElfCompressor;
-import org.urbcomp.startdb.compress.elf.compressor.ICompressor;
+import org.urbcomp.startdb.compress.elf.filecompressor.AbstractFileCompressor;
 import org.urbcomp.startdb.compress.elf.utils.FileReader;
 import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
+import org.urbcomp.startdb.serf.compressor.ICompressor;
+import org.urbcomp.startdb.serf.compressor.SerfQtCompressor;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.urbcomp.startdb.compress.elf.utils.OperationBetweenIntAndByte.intToTwoBytes;
 
-public class ElfFileCompressor extends AbstractFileCompressor{
+public class SerfQtFileCompressor extends AbstractFileCompressor {
     @Override
     public void compress() throws IOException {
         FileReader fileReader;
@@ -33,7 +34,7 @@ public class ElfFileCompressor extends AbstractFileCompressor{
         sizeList.add((byte) 0x00);
         long stime = System.currentTimeMillis();
         while ((vs = fileReader.nextBlock()) != null) {
-            ICompressor compressor = new ElfCompressor();
+            ICompressor compressor = new SerfQtCompressor(1.0E-1);
 
             for (double v : vs) {
                 compressor.addValue(v);
@@ -42,7 +43,8 @@ public class ElfFileCompressor extends AbstractFileCompressor{
             byte[] result = compressor.getBytes();
 
 
-            int sizeofcompressor = compressor.getSize() / 8 + 12;// todo:+12?
+            int sizeofcompressor = (int) (compressor.getCompressedSizeInBits() / 8); // todo:+12?
+//            int sizeofcompressor = 12;
             byte[] sizeOfBlock = intToTwoBytes(sizeofcompressor);
             //CountOfBlock 记录有多少个块
             if (sizeList.get(1) != (byte) 0xff) {
@@ -85,7 +87,7 @@ public class ElfFileCompressor extends AbstractFileCompressor{
 //        }
 
         // todo：改名  1? fos写num+content
-        WriteByteToCSV.writeByteToCSV(filePath,1);
+        WriteByteToCSV.writeByteToCSV(filePath,8);
 
         fos.close();
 

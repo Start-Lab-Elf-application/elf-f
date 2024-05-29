@@ -1,14 +1,15 @@
-package org.urbcomp.startdb.compress.elf.filedecompressor;
+package org.urbcomp.startdb.serf.filedecompressor;
 
-import org.urbcomp.startdb.compress.elf.decompressor.ElfDecompressor;
-import org.urbcomp.startdb.compress.elf.decompressor.IDecompressor;
+import org.urbcomp.startdb.compress.elf.filedecompressor.AbstractFileDecompressor;
+import org.urbcomp.startdb.serf.decompressor.IDecompressor;
+import org.urbcomp.startdb.serf.decompressor.SerfQtDecompressor;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
-
-public class ElfFileDecompressor extends AbstractFileDecompressor{
-
+public class SerfQtFileDecompressor extends AbstractFileDecompressor {
     @Override
     public void decompress() throws IOException {
         List<byte[]> data = readBytesFromFile(this.getFilePath());
@@ -18,8 +19,8 @@ public class ElfFileDecompressor extends AbstractFileDecompressor{
             StringBuilder stringBuilder = new StringBuilder();
 
             for (byte[] block : data) {
-                IDecompressor decompressor = new ElfDecompressor(block);
-                List<Double> blockValues = decompressor.decompress();
+                IDecompressor decompressor = new SerfQtDecompressor(1.0E-1);
+                List<Double> blockValues = decompressor.decompress(block);
 //                System.out.println("decompress success");
                 for (double element : blockValues) {
                     stringBuilder.append(element).append(System.lineSeparator());

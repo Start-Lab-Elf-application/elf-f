@@ -5,6 +5,8 @@ import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
 import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
 import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
+import org.urbcomp.startdb.serf.filecompressor.SerfQtFileCompressor;
+import org.urbcomp.startdb.serf.filedecompressor.SerfQtFileDecompressor;
 
 import java.io.*;
 import java.util.Objects;
@@ -41,6 +43,9 @@ public class Main {
             }
             else if (Objects.equals(choice, "7")){
                 fileCompressor = new GorillaFileCompressorOS();
+            }
+            else if (Objects.equals(choice, "8")){
+                fileCompressor = new SerfQtFileCompressor();
             }
             else{
                 System.out.println("没有该选项");
@@ -91,6 +96,10 @@ public class Main {
             else if (algorithmInt == 7){
                 fileDecompressor = new GorillaFileDecompressorOS();
                 System.out.println("Gorilla");
+            }
+            else if (algorithmInt == 8){
+                fileDecompressor = new SerfQtFileDecompressor();
+                System.out.println("SerfQt");
             }
             else if (filePath.endsWith(".elf32")){
                 fileDecompressor = new ElfFileDecompressor32();
