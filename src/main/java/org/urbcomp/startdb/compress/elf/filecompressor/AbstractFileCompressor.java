@@ -1,6 +1,7 @@
 package org.urbcomp.startdb.compress.elf.filecompressor;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public abstract class AbstractFileCompressor implements IFileCompressor{
     private String filePath = "";

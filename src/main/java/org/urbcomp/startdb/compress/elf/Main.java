@@ -3,8 +3,6 @@ package org.urbcomp.startdb.compress.elf;
 import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
-import org.urbcomp.startdb.compress.elf.utils.DeleteBytesFromDF;
-import org.urbcomp.startdb.compress.elf.utils.WriteByteToCSV;
 import org.urbcomp.startdb.serf.filecompressor.SerfQtFileCompressor;
 import org.urbcomp.startdb.serf.filedecompressor.SerfQtFileDecompressor;
 
@@ -17,39 +15,43 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int flag = Integer.parseInt(args[0]);
-        String filePath = args[1];
-        String outputFilePath = args[2];
-        String choice = args[3];
+        int serf = Integer.parseInt(args[1]);
+        String filePath = args[2];
+        String outputFilePath = args[3];
+        String choice = args[4];
+
 
         if(flag == 0){
             AbstractFileCompressor fileCompressor = null;
-            if (Objects.equals(choice, "1")){
-                fileCompressor = new ElfFileCompressor();
-            }
-            else if (Objects.equals(choice, "2")){
-                fileCompressor = new ChimpFileCompressor();
-            }
-            else if (Objects.equals(choice, "3")){
-                fileCompressor = new ChimpNFileCompressor();
-            }
-            else if (Objects.equals(choice, "4")){
-                fileCompressor = new ElfOnChimpFileCompressor();
-            }
-            else if (Objects.equals(choice, "5")){
-                fileCompressor = new ElfOnChimpNFileCompressor();
-            }
-            else if (Objects.equals(choice, "6")){
-                fileCompressor = new ElfOnGorillaFileCompressorOS();
-            }
-            else if (Objects.equals(choice, "7")){
-                fileCompressor = new GorillaFileCompressorOS();
-            }
-            else if (Objects.equals(choice, "8")){
+            if (serf == 1){
                 fileCompressor = new SerfQtFileCompressor();
             }
             else{
-                System.out.println("没有该选项");
-                return;
+                if (Objects.equals(choice, "1")){
+                    fileCompressor = new ElfFileCompressor();
+                }
+                else if (Objects.equals(choice, "2")){
+                    fileCompressor = new ChimpFileCompressor();
+                }
+                else if (Objects.equals(choice, "3")){
+                    fileCompressor = new ChimpNFileCompressor();
+                }
+                else if (Objects.equals(choice, "4")){
+                    fileCompressor = new ElfOnChimpFileCompressor();
+                }
+                else if (Objects.equals(choice, "5")){
+                    fileCompressor = new ElfOnChimpNFileCompressor();
+                }
+                else if (Objects.equals(choice, "6")){
+                    fileCompressor = new ElfOnGorillaFileCompressorOS();
+                }
+                else if (Objects.equals(choice, "7")){
+                    fileCompressor = new GorillaFileCompressorOS();
+                }
+                else{
+                    System.out.println("没有该选项");
+                    return;
+                }
             }
             //...继续添加其他算法
             fileCompressor.setFilePath(filePath);
@@ -65,8 +67,6 @@ public class Main {
                 fis.read(algorithmByte);
             }
             int algorithmInt = ByteToInt.byteToInt(algorithmByte);
-//            //删除每块开头的字节大小
-//            DeleteBytesFromDF.writeByteToDF(filePath);
 
             AbstractFileDecompressor fileDecompressor = null;
             if (algorithmInt == 1){
@@ -101,27 +101,6 @@ public class Main {
                 fileDecompressor = new SerfQtFileDecompressor();
                 System.out.println("SerfQt");
             }
-            else if (filePath.endsWith(".elf32")){
-                fileDecompressor = new ElfFileDecompressor32();
-            }
-            else if (filePath.endsWith(".chimp32")){
-                fileDecompressor = new ChimpFileDecompressor32();
-            }
-            else if (filePath.endsWith(".chimpN32")){
-                fileDecompressor = new ChimpNFileDecompressor32();
-            }
-            else if (filePath.endsWith(".elfOnChimp32")){
-                fileDecompressor = new ElfOnChimpFileDecompressor32();
-            }
-            else if (filePath.endsWith(".elfOnChimpN32")){
-                fileDecompressor = new ElfOnChimpNFileDecompressor32();
-            }
-            else if (filePath.endsWith(".elfOnGorilla32")){
-                fileDecompressor = new ElfOnGorillaFileDecompressor32OS();
-            }
-            else if (filePath.endsWith(".gorilla32")){
-                fileDecompressor = new GorillaFileDecompressor32OS();
-            }
             else{
                 System.out.println("没有该选项");
                 return;
@@ -129,7 +108,6 @@ public class Main {
             fileDecompressor.setFilePath(filePath);
             fileDecompressor.setoutputFilePath(outputFilePath);
             fileDecompressor.decompress();
-//            WriteByteToCSV.writeByteToCSV(filePath, 1);
         }
     }
 }
