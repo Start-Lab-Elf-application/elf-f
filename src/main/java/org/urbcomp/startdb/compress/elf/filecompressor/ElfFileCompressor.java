@@ -60,13 +60,11 @@ public class ElfFileCompressor extends AbstractFileCompressor{
         }//写压缩内容
         bos.flush();
         bos.close();
-//        System.out.println("压缩时间："+ (System.nanoTime()-stime));
         byte[] blocks=new byte[sizeList.size()];
         for (int i = 0; i < sizeList.size(); i++) {
             blocks[i] = sizeList.get(i);
         }
         File file = new File(filePath);
-        System.out.println(file.length());
         byte[] fileContent = new byte[(int) file.length()];
         try (FileInputStream fis = new FileInputStream(file)) {
             fis.read(fileContent);

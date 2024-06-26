@@ -3,12 +3,10 @@ package org.urbcomp.startdb.compress.elf;
 import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
 import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
-import org.urbcomp.startdb.compress.elf.utils.DeleteByte;
 import org.urbcomp.startdb.serf.filecompressor.SerfQtFileCompressor;
 import org.urbcomp.startdb.serf.filedecompressor.SerfQtFileDecompressor;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Main {
@@ -65,12 +63,6 @@ public class Main {
 
         else{
 // 从给定的文件路径（filePath）中读取前四个字节，将其转换为整数，
-//            byte[] algorithmByte = new byte[4];
-//            File file = new File(filePath);
-//            try (FileInputStream fis = new FileInputStream(file)) {
-//                fis.read(algorithmByte);
-//            }
-//            int algorithmInt = ByteToInt.byteToInt(algorithmByte);
             byte[] algorithmByte = new byte[4];
             File file = new File(filePath);
             try (FileInputStream fis = new FileInputStream(file)) {
