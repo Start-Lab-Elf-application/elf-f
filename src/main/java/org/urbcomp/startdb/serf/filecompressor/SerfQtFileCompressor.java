@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import static org.urbcomp.startdb.compress.elf.utils.OperationBetweenIntAndByte.intToTwoBytes;
 
 public class SerfQtFileCompressor extends AbstractFileCompressor {
+    public double precison;
+
+    public SerfQtFileCompressor(double precison){
+        this.precison = precison;
+    }
+
     @Override
     public void compress() throws IOException {
         FileReader fileReader;
@@ -34,8 +40,8 @@ public class SerfQtFileCompressor extends AbstractFileCompressor {
         sizeList.add((byte) 0x00);
         long stime = System.currentTimeMillis();
         while ((vs = fileReader.nextBlock()) != null) {
-            ICompressor compressor = new SerfQtCompressor(1.0E-1);
-
+//            ICompressor compressor = new SerfQtCompressor(1.0E-1);
+            ICompressor compressor = new SerfQtCompressor(this.precison);
             for (double v : vs) {
                 compressor.addValue(v);
             }

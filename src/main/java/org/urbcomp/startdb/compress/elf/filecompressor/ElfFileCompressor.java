@@ -66,6 +66,7 @@ public class ElfFileCompressor extends AbstractFileCompressor{
             blocks[i] = sizeList.get(i);
         }
         File file = new File(filePath);
+        System.out.println(file.length());
         byte[] fileContent = new byte[(int) file.length()];
         try (FileInputStream fis = new FileInputStream(file)) {
             fis.read(fileContent);

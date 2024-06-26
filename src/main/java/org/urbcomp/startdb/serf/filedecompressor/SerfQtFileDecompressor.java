@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class SerfQtFileDecompressor extends AbstractFileDecompressor {
+    public double precison;
+
+    public SerfQtFileDecompressor(double precison){
+        this.precison = precison;
+    }
+
     @Override
     public void decompress() throws IOException {
         List<byte[]> data = readBytesFromFile(this.getFilePath());
@@ -19,7 +25,8 @@ public class SerfQtFileDecompressor extends AbstractFileDecompressor {
             StringBuilder stringBuilder = new StringBuilder();
 
             for (byte[] block : data) {
-                IDecompressor decompressor = new SerfQtDecompressor(1.0E-1);
+//                IDecompressor decompressor = new SerfQtDecompressor(1.0E-1);
+                IDecompressor decompressor = new SerfQtDecompressor(this.precison);
                 List<Double> blockValues = decompressor.decompress(block);
 //                System.out.println("decompress success");
                 for (double element : blockValues) {

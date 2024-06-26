@@ -13,18 +13,20 @@ public class Main {
 
     public static byte[] result;
 
+    private static final double[] MAX_DIFF = new double[]{1.0E-1, 1.0E-2, 1.0E-3, 1.0E-4, 1.0E-5, 1.0E-6, 1.0E-7, 1.0E-8};
+
     public static void main(String[] args) throws IOException {
         int flag = Integer.parseInt(args[0]);
         int serf = Integer.parseInt(args[1]);
         String filePath = args[2];
         String outputFilePath = args[3];
         String choice = args[4];
-
+        int precisionFlag = Integer.parseInt(args[5]);   //精度 比如0代表1.0E-1；1代表1.0E-2，以此类推
 
         if(flag == 0){
             AbstractFileCompressor fileCompressor = null;
             if (serf == 1){
-                fileCompressor = new SerfQtFileCompressor();
+                fileCompressor = new SerfQtFileCompressor(MAX_DIFF[precisionFlag]);
             }
             else{
                 if (Objects.equals(choice, "1")){
@@ -98,7 +100,7 @@ public class Main {
                 System.out.println("Gorilla");
             }
             else if (algorithmInt == 8){
-                fileDecompressor = new SerfQtFileDecompressor();
+                fileDecompressor = new SerfQtFileDecompressor(MAX_DIFF[precisionFlag]);
                 System.out.println("SerfQt");
             }
             else{
