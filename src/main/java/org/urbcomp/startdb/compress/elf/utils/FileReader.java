@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    public static final int DEFAULT_BLOCK_SIZE = 1000;
+    public static final int DEFAULT_BLOCK_SIZE = 100;
     BufferedReader bufferedReader;
     private final int blockSize;
 

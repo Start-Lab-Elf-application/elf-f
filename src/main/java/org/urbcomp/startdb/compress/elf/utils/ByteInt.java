@@ -1,22 +1,11 @@
 package org.urbcomp.startdb.compress.elf.utils;
 
-import java.nio.ByteBuffer;
-
-public class ByteToInt {
-
-    public static int byteToInt(byte[] bytes) {
-        int ans=0;
-        for(int i=0;i<4;i++){
-            ans<<=8;
-            ans|=(bytes[3-i]&0xff);
-        }
-        return ans;
-    }
+public class ByteInt {
 
     /**
      * byte数组中取int数值，本方法适用于(低位在后，高位在前)的顺序。和intToBytes2（）配套使用
      */
-    public static int byteToInt2(byte[] src) {
+    public static int bytesToInt(byte[] src) {
         int value;
         value = (int) ( ((src[0] & 0xFF)<<24)
                 |((src[1] & 0xFF)<<16)
@@ -28,7 +17,7 @@ public class ByteToInt {
     /**
      * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
      */
-    public static byte[] intToBytes2(int value)
+    public static byte[] intToBytes(int value)
     {
         byte[] src = new byte[4];
         src[0] = (byte) ((value>>24) & 0xFF);

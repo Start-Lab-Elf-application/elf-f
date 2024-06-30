@@ -18,7 +18,7 @@ public class WriteByteToCSV {
             }
 
             // 将数字转换为字节
-            byte[] numberBytes = intToBytes(number);
+            byte[] numberBytes = ByteInt.intToBytes(number);
 
             byte[] newContent = new byte[fileContent.length + numberBytes.length];
 
@@ -33,15 +33,5 @@ public class WriteByteToCSV {
             e.printStackTrace();
         }
 
-    }
-//    private static byte[] intToBytes(int value) {
-//        return Integer.toString(value).getBytes(StandardCharsets.UTF_8);
-//    }
-
-    public static byte[] intToBytes(int a){
-        byte[] ans=new byte[4];
-        for(int i=0;i<4;i++)
-            ans[i]=(byte)(a>>(i*8));//截断 int 的低 8 位为一个字节 byte，并存储起来
-        return ans;
     }
 }

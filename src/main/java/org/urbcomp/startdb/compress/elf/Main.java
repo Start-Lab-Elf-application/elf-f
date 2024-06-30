@@ -2,7 +2,7 @@ package org.urbcomp.startdb.compress.elf;
 
 import org.urbcomp.startdb.compress.elf.filecompressor.*;
 import org.urbcomp.startdb.compress.elf.filedecompressor.*;
-import org.urbcomp.startdb.compress.elf.utils.ByteToInt;
+import org.urbcomp.startdb.compress.elf.utils.ByteInt;
 import org.urbcomp.startdb.serf.filecompressor.SerfQtFileCompressor;
 import org.urbcomp.startdb.serf.filedecompressor.SerfQtFileDecompressor;
 
@@ -68,7 +68,7 @@ public class Main {
             try (FileInputStream fis = new FileInputStream(file)) {
                 fis.read(algorithmByte);
             }
-            int algorithmInt = ByteToInt.byteToInt(algorithmByte);
+            int algorithmInt = ByteInt.bytesToInt(algorithmByte);
             System.out.println(algorithmInt);
 
             AbstractFileDecompressor fileDecompressor = null;
