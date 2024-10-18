@@ -13,6 +13,7 @@ public class FileReader {
     BufferedReader bufferedReader;
     private final int blockSize;
     //
+    private int currentLine=0;
     private int col_num;
 
     public static int getNumberOfColumns(String filePath) throws FileNotFoundException {
@@ -46,6 +47,7 @@ public class FileReader {
             int counter = 0;
             int col_counter=0;//在不同的nextBlock时，如何衔接之前的读取位置？
             while ((line = bufferedReader.readLine()) != null) {
+                currentLine++;
                 // 匹配逗号或任意数量的空格作为分隔符
                 String[] parts = line.split(",\\s*|\\s+");
 
@@ -65,7 +67,8 @@ public class FileReader {
                             return valuesList.stream().mapToDouble(Double::doubleValue).toArray();
                         }
                     } catch (NumberFormatException e) {
-                        throw new RuntimeException(e);
+                        System.out.print("在\033[31m第"+currentLine+" 行 \033[0m 行检测到无法被解析为数字的内容：\033[31m"+part+"\033[0m\n");
+                        throw new IllegalArgumentException("Invalid number format: " + part+"at line"+currentLine, e);
                     }
                 }
             }
