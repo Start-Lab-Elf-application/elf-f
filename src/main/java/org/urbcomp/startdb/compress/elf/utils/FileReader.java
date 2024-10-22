@@ -12,6 +12,8 @@ public class FileReader {
     public static final int DEFAULT_BLOCK_SIZE = 100;
     BufferedReader bufferedReader;
     private final int blockSize;
+    //
+    private int currentLine=0;
     private int col_num;
 
     public static int getNumberOfColumns(String filePath) throws FileNotFoundException {
@@ -32,46 +34,20 @@ public class FileReader {
         this.bufferedReader = new BufferedReader(fr);
         this.blockSize = blockSize;
     }
-
     public FileReader(String filePath) throws FileNotFoundException {
         this(filePath, DEFAULT_BLOCK_SIZE);
     }
-
-//    public double[] nextBlock() {
-//        List<Double> valuesList = new ArrayList<>();
-//        String line;
-//        try {
-//            int counter = 0;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                try {
-//                    valuesList.add(Double.parseDouble(line));
-//                    counter++;
-//                    if (counter == blockSize) {
-//                        return valuesList.stream().mapToDouble(Double::doubleValue).toArray();
-//                    }
-//                } catch (NumberFormatException ignored) {
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (!valuesList.isEmpty()) {
-//            return valuesList.stream().mapToDouble(Double::doubleValue).toArray();
-//        }
-//
-//        return null;
-//    }
     public int getCol_num() {
-    return col_num;
-}
+        return col_num;
+    }
     public double[] nextBlock() {
         List<Double> valuesList = new ArrayList<>();
         String line;
         try {
             int counter = 0;
-            int col_counter=0;
+            int col_counter=0;//在不同的nextBlock时，如何衔接之前的读取位置？
             while ((line = bufferedReader.readLine()) != null) {
+                currentLine++;
                 // 匹配逗号或任意数量的空格作为分隔符
                 String[] parts = line.split(",\\s*|\\s+");
 
@@ -91,7 +67,8 @@ public class FileReader {
                             return valuesList.stream().mapToDouble(Double::doubleValue).toArray();
                         }
                     } catch (NumberFormatException e) {
-                        throw new RuntimeException(e);
+                        System.out.print("在\033[31m第"+currentLine+" 行 \033[0m 行检测到无法被解析为数字的内容：\033[31m"+part+"\033[0m\n");
+                        throw new IllegalArgumentException("Invalid number format: " + part+"at line"+currentLine, e);
                     }
                 }
             }
@@ -105,4 +82,5 @@ public class FileReader {
 
         return null;
     }
+
 }
